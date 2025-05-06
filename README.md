@@ -61,8 +61,6 @@ uv add fastmcp
 
 ## 🖥️ Running the Servers
 
-Open **three terminals** (or use a terminal multiplexer like `tmux`):
-
 ### 1. Start the Product Search Server (STDIO)
 
 ```bash
