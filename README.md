@@ -1,86 +1,108 @@
-# Model-Context-Protocol-
-
+---
 
 # Product Recommendation System with Model Context Protocol (MCP)
 
-This project demonstrates a product recommendation system built using the Model Context Protocol (MCP) with a multi-server architecture. It integrates different functionalities like product search, price comparison, and review analysis, leveraging both Server-Sent Events (SSE) and Standard Input/Output (STDIO) for communication between components. The review analysis is powered by IBM Watsonx.
+This project demonstrates a **product recommendation system** built using the **Model Context Protocol (MCP)** with a **multi-server architecture**. It integrates functionalities like product search, price comparison, and review analysis, using **Server-Sent Events (SSE)** and **Standard Input/Output (STDIO)** for inter-server communication. The **review analysis** is powered by **IBM Watsonx**.
 
-## Architecture
+---
+
+## 🧱 Architecture
 
 The system comprises the following independent servers:
 
-1.  **Product Search Server (`product_search_server.py`):**
-    * Provides a tool (`find_products`) to search for products based on a user query.
-    * Maintains a simulated in-memory database of products across categories (laptops, headphones, cameras).
-    * Communicates with the MCP client via **STDIO**.
+### 1. **Product Search Server** (`product_search_server.py`)
 
-2.  **Price Comparator Server (`price_comparator_server.py`):**
-    * Offers a tool (`compare_product_prices`) to fetch and compare simulated prices for a given product name from various virtual vendors.
-    * Communicates with the MCP client via **Server-Sent Events (SSE)** on `http://0.0.0.0:8002/sse`.
+* Tool: `find_products`
+* Searches for products based on a user query.
+* Uses an in-memory simulated product database (e.g., laptops, headphones, cameras).
+* Communicates via **STDIO** with the MCP client.
 
-3.  **Review Analyzer Server (`review_analyzer_server.py`):**
-    * Provides a tool (`analyze_product_reviews`) to generate a brief summary of hypothetical positive and negative reviews for a given product name.
-    * Utilizes **IBM Watsonx** for generating these review summaries based on a prompt.
-    * Communicates with the MCP client via **Server-Sent Events (SSE)** on `http://0.0.0.0:8001/sse`.
-    * Requires IBM Watsonx API key, URL, Model ID, and Project ID to be set as environment variables.
+### 2. **Price Comparator Server** (`price_comparator_server.py`)
 
-4.  **Recommendation Agent (`recommendation_agent.py`):**
-    * Acts as the central orchestrator, using Langchain's `create_react_agent` and the `MultiServerMCPClient` to interact with the other servers.
-    * Defines a system prompt to guide the agent in finding products, comparing prices, and summarizing findings into a recommendation for the user.
-    * Leverages the tools exposed by the other servers through the MCP client.
+* Tool: `compare_product_prices`
+* Simulates fetching and comparing product prices from various vendors.
+* Communicates via **SSE** on `http://0.0.0.0:8002/sse`.
 
-## Prerequisites
+### 3. **Review Analyzer Server** (`review_analyzer_server.py`)
 
-Before you begin, ensure you have the following installed:
+* Tool: `analyze_product_reviews`
+* Summarizes positive and negative reviews for a product using IBM Watsonx.
+* Communicates via **SSE** on `http://0.0.0.0:8001/sse`.
+* Requires the following environment variables:
 
-* **uv:** A fast Python package installer and resolver. Install it using `pip install uv`.
-* **Environment Variables:** Set the following environment variables in a `.env` file (create one in the project root):
+  * `WATSONX_API_KEY`
+  * `WATSONX_URL`
+  * `WATSONX_MODEL_ID`
+  * `WATSONX_PROJECT_ID`
 
-## Step-by-Step Instructions
+### 4. **Recommendation Agent** (`recommendation_agent.py`)
 
-Follow these steps to run the product recommendation system:
-
-**1. Set up the Virtual Environment:**
-   ```bash
-   uv venv
-   source .venv/bin/activate
+* Central orchestrator using LangChain's `create_react_agent` and `MultiServerMCPClient`.
+* Coordinates interactions with all three servers.
+* Generates a recommendation based on product findings, prices, and reviews.
 
 
-**2. Initialize an uv project:**
-   ```bash
-   uv init
+## 🚀 Getting Started
 
-**2. Initialize an uv project:**
-   ```bash
-   uv init
+### 1. Set up the virtual environment:
 
-**3. Install the fastmcp python library:**
-   ```bash
-   uv add fastmcp
+```bash
+uv venv
+source .venv/bin/activate
+```
 
+### 2. Initialize the uv project:
 
+```bash
+uv init
+```
 
-## Running the Servers
+### 3. Install required package:
 
-Open three terminals (or use a multiplexer like tmux/tmuxinator).
+```bash
+uv add fastmcp
+```
 
-**1. Start Product Search Server (stdio)**
+---
 
-   ```bash
-   uv run mcp dev product_search_server.py
+## 🖥️ Running the Servers
 
-**2. Start Price Comparator Server (SSE)**
+Open **three terminals** (or use a terminal multiplexer like `tmux`):
 
-   ```bash
-   python price_comparator_server.py
+### 1. Start the Product Search Server (STDIO)
 
+```bash
+uv run mcp dev product_search_server.py
+```
 
-**3. Start Review Analyzer Server (SSE)**
+### 2. Start the Price Comparator Server (SSE)
 
-   ```bash
-   python review_analyzer_server.py
+```bash
+python price_comparator_server.py
+```
 
+### 3. Start the Review Analyzer Server (SSE)
+
+```bash
+python review_analyzer_server.py
+```
 
 Each server will log incoming requests and responses to the console.
 
+---
 
+## 🤖 Running the Recommendation Agent
+
+Once all servers are running, start the agent:
+
+```bash
+python recommendation_agent.py
+```
+
+### Default Query:
+
+```
+I need a good laptop for programming, maybe under $1000?
+```
+
+---
