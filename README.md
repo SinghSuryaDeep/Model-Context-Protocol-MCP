@@ -41,7 +41,6 @@ Before you begin, ensure you have the following installed:
 Follow these steps to run the product recommendation system:
 
 **1. Set up the Virtual Environment:**
-
    ```bash
    uv venv
    source .venv/bin/activate
@@ -60,7 +59,6 @@ Follow these steps to run the product recommendation system:
    uv add fastmcp
 
 
----
 
 ## Running the Servers
 
@@ -86,4 +84,4 @@ python review_analyzer_server.py
 
 Each server will log incoming requests and responses to the console.
 
----
+
