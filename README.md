@@ -66,21 +66,20 @@ Open three terminals (or use a multiplexer like tmux/tmuxinator).
 
 **1. Start Product Search Server (stdio)**
 
-```bash
-uv run mcp dev product_search_server.py
-```
+   ```bash
+   uv run mcp dev product_search_server.py
 
 **2. Start Price Comparator Server (SSE)**
 
-```bash
-python price_comparator_server.py
-```
+   ```bash
+   python price_comparator_server.py
+
 
 **3. Start Review Analyzer Server (SSE)**
 
-```bash
-python review_analyzer_server.py
-```
+   ```bash
+   python review_analyzer_server.py
+
 
 Each server will log incoming requests and responses to the console.
 
