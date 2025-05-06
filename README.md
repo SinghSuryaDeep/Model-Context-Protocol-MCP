@@ -1,8 +1,8 @@
 ---
 
-# Product Recommendation System with Model Context Protocol (MCP)
+# Product Recommendation System with Model Context Protocol (MCP) and IBM watsonx
 
-This project demonstrates a **product recommendation system** built using the **Model Context Protocol (MCP)** with a **multi-server architecture**. It integrates functionalities like product search, price comparison, and review analysis, using **Server-Sent Events (SSE)** and **Standard Input/Output (STDIO)** for inter-server communication. The **review analysis** is powered by **IBM Watsonx**.
+This project demonstrates a **product recommendation system** built using the **Model Context Protocol (MCP)** with a **multi-server architecture**. It integrates functionalities like product search, price comparison, and review analysis, using **Server-Sent Events (SSE)** and **Standard Input/Output (STDIO)** for inter-server communication. The **review analysis** is powered by **IBM watsonx**.
 
 ---
 
@@ -28,12 +28,6 @@ The system comprises the following independent servers:
 * Tool: `analyze_product_reviews`
 * Summarizes positive and negative reviews for a product using IBM Watsonx.
 * Communicates via **SSE** on `http://0.0.0.0:8001/sse`.
-* Requires the following environment variables:
-
-  * `WATSONX_API_KEY`
-  * `WATSONX_URL`
-  * `WATSONX_MODEL_ID`
-  * `WATSONX_PROJECT_ID`
 
 ### 4. **Recommendation Agent** (`recommendation_agent.py`)
 
