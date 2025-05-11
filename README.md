@@ -36,27 +36,6 @@ The system comprises the following independent servers:
 * Generates a recommendation based on product findings, prices, and reviews.
 
 
-## 🚀 Getting Started
-
-### 1. Set up the virtual environment:
-
-```bash
-uv venv
-source .venv/bin/activate
-```
-
-### 2. Initialize the uv project:
-
-```bash
-uv init
-```
-
-### 3. Install required package:
-
-```bash
-uv add fastmcp
-```
-
 ---
 
 ## 🖥️ Running the Servers
